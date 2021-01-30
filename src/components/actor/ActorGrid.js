@@ -2,9 +2,11 @@ import React from 'react'
 import ActorCard from './ActorCard'
 import imagenotfound from '../../assets/not-found.png'
 
+import {FlexGrid} from '../Style'
+
 export default function ActorGrid({data}) {
     return (
-        <div>
+        <FlexGrid>
             {
                 data.map(({person}) => 
                     <ActorCard
@@ -18,7 +20,7 @@ export default function ActorGrid({data}) {
                     />
                 )
             }
-        </div>
+        </FlexGrid>
     )
 }
 

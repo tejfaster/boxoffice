@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import MainPageLayout from '../components/MainPageLayout'
 import { apiGet } from '../misc/config'
+import ShowGrid from '../components/show/ShowGrid'
+import ActorGrid from '../components/actor/ActorGrid'
 
 export default function Home() {
     const [input, setInput] = useState('');
     const [results, setResult] = useState(null);
-    const [searchOption,setSearchOption] = useState('shows');
+    const [searchOption, setSearchOption] = useState('shows');
     const isShowsSearch = searchOption === 'shows'
+
     const onInputChange = ev => {
         setInput(ev.target.value)
     }
@@ -40,11 +43,8 @@ export default function Home() {
             return <div>No results</div>
         }
         if (results && results.length > 0) {
-            return results[0].show ? results.map(item =>(
-                <div key={item.show.id}>{item.show.name}</div>
-            )) : results.map(item =>(
-                <div key={item.person.id}>{item.person.name}</div>
-            ))
+            return results[0].show
+                ? <ShowGrid data={results} /> : <ActorGrid data={results} />
         }
         return null
     }
@@ -60,22 +60,22 @@ export default function Home() {
             <div>
                 <label htmlFor="shows-search">
                     Shows
-                    <input 
-                    id="shows-search"
-                    type="radio"
-                    value="shows" 
-                    checked={isShowsSearch}
-                    onChange={onRadioChange}
-                     />
+                    <input
+                        id="shows-search"
+                        type="radio"
+                        value="shows"
+                        checked={isShowsSearch}
+                        onChange={onRadioChange}
+                    />
                 </label>
                 <label htmlFor="actors-search">
-                   Actors
+                    Actors
                     <input
-                    id="actors-search" 
-                    type="radio"
-                    value="people"
-                    checked={!isShowsSearch}
-                    onChange={onRadioChange}
+                        id="actors-search"
+                        type="radio"
+                        value="people"
+                        checked={!isShowsSearch}
+                        onChange={onRadioChange}
                     />
                 </label>
             </div>

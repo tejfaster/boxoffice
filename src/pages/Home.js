@@ -10,6 +10,15 @@ export default function Home() {
     const [searchOption, setSearchOption] = useState('shows');
     const isShowsSearch = searchOption === 'shows'
 
+    // useEffect(()=>{
+    //     // compnentdidMount
+    //     console.log('component did mount')
+    //     // compnent unMount
+    //     return()=>{
+    //         console.log('component unmount')
+    //     }
+    // },[])
+
     const onInputChange = ev => {
         setInput(ev.target.value)
     }

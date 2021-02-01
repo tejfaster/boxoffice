@@ -30,6 +30,7 @@ export default function Home() {
         });
 
         // fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
+        // fetch(`https://api.nasa.gov/planetary/apod?api_key=rfFbiDUJ9b6kKtiAAoV4NIBEnMGvscl2jOQ7hIl7`)
         //     .then(r => r.json())
         //     .then(result => {
         //         setResult(result);

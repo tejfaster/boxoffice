@@ -1,6 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGet } from '../misc/config'
+import Details from '../components/show/Details'
+import Season from '../components/show/Season'
+import Cast from '../components/show/Cast'
+import ShowMainData from '../components/show/ShowMainData'
 
 const reducer = (prevState, action) => {
     switch (action.type) {
@@ -24,12 +29,13 @@ const initialState = {
 function Show() {
     const { id } = useParams()
 
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [{ show, isLoading, error }, dispatch] = useReducer(reducer, initialState);
 
     // const [show, setshow] = useState("Component did mount ")
     // const [isLoading, setLoading] = useState(true)
     // const [error, setError] = useState(null)
-    console.log(state)
+
+    // console.log(state)
     useEffect(() => {
 
         let isMounted = true
@@ -56,14 +62,41 @@ function Show() {
     }, [id])
 
 
-    // console.log('show', show)
-    // if (isLoading) {
-    //     return <div>Data is Loading</div>
-    // }
-    // if (error) {
-    //     return <div>Error occurred :{error}</div>
-    // }
-    return <div>this is show page</div>
+    console.log('show', show)
+    if (isLoading) {
+        return <div>Data is Loading</div>
+    }
+    if (error) {
+        return <div>Error occurred :{error}</div>
+    }
+
+    return <div>
+        <ShowMainData
+            image={show.image}
+            name={show.name}
+            rating={show.rating}
+            summary={show.summary}
+            tags={show.genres}
+        />
+        <div>
+            <h2>Details</h2>
+            <Details
+                status={show.status}
+                network={show.network}
+                premiered={show.premiered}
+            />
+        </div>
+
+        <div>
+            <h2>Season</h2>
+            <Season  seasons={show._embedded.seasons}/>
+        </div>
+
+        <div>
+            <h2>Cast</h2>
+            <Cast cast={show._embedded.cast} />
+        </div>
+    </div>
 }
 
 export default Show

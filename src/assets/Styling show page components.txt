@@ -182,3 +182,5 @@ export const CastList = styled.div`
     }
   }
 `;
+
+vscode://vscode.github-authentication/did-authenticate?windowid=1&code=2d61814acdaa1326b49f&state=8623dbe9-9e56-403b-9c80-4a7a75408380

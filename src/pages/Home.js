@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import MainPageLayout from '../components/MainPageLayout'
 import { apiGet } from '../misc/config'
 import ShowGrid from '../components/show/ShowGrid'
@@ -22,9 +22,11 @@ export default function Home() {
     //     }
     // },[])
 
-    const onInputChange = ev => {
-        setInput(ev.target.value)
-    }
+    const onInputChange = useCallback(
+        ev => {
+            setInput(ev.target.value)
+        }, [setInput] )
+
     const onClickSearch = () => {
 
         apiGet(`/search/${searchOption}?q=${input}`).then(result => {
@@ -47,9 +49,9 @@ export default function Home() {
         }
         // console.log(ev.keyCode)
     }
-    const onRadioChange = (ev) => {
+    const onRadioChange = useCallback(ev => {
         setSearchOption(ev.target.value)
-    }
+    }, [])
     console.log(searchOption)
     const renderResults = () => {
         if (results && results.length === 0) {
@@ -73,7 +75,7 @@ export default function Home() {
             <RadioInputsWrapper>
                 <div>
                     <CustomRadio
-                    label='Shows'
+                        label='Shows'
                         id="shows-search"
                         // type="text"
                         value="shows"
@@ -82,12 +84,12 @@ export default function Home() {
                     />
                 </div>
                 <div>
-                <CustomRadio
-                    label='Actors'
-                    id="actors-search"
-                    value="people"
-                    checked={!isShowsSearch}
-                    onChange={onRadioChange}
+                    <CustomRadio
+                        label='Actors'
+                        id="actors-search"
+                        value="people"
+                        checked={!isShowsSearch}
+                        onChange={onRadioChange}
                     />
                 </div>
             </RadioInputsWrapper>
